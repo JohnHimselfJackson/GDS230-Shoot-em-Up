@@ -10,7 +10,8 @@ public class GenericEnemy : MonoBehaviour
     public enum EnemyType { Unassigned, Basic, SecRobot, GuardDog, SecDrone, Grunt }
     public enum EnemyState { Agroed, Passive }
 
-    public bool EnemySpotted;
+    public bool enemySpotted;
+    public GameObject target;
 
     protected int myHealth;
     protected int myArmour;

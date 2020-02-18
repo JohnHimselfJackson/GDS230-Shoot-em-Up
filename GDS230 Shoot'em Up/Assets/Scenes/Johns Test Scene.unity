@@ -746,7 +746,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265944884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.125, y: 0.822, z: 0}
+  m_LocalPosition: {x: 2.0449, y: 0.8408, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -764,7 +764,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e757faa779cf1a446a0ce38e23051bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySpotted: 0
+  enemySpotted: 0
+  target: {fileID: 0}
+  bullet: {fileID: 1925112057654832791, guid: 0c806e4ef55721a4d90982074258b046, type: 3}
   movementSpeed: 0.2
 --- !u!60 &1265944890
 PolygonCollider2D:
@@ -792,12 +794,12 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.15, y: 0.29999998}
-      - {x: -3, y: 0.8}
-      - {x: -3, y: -0.29999998}
+      - {x: -4, y: 0.8}
+      - {x: -4, y: -0.29999998}
       - {x: -0.15, y: -0.29999998}
       - {x: 0.14999999, y: -0.29999998}
-      - {x: 3, y: -0.3}
-      - {x: 3, y: 0.8}
+      - {x: 2, y: -0.3}
+      - {x: 2, y: 0.8}
       - {x: 0.15, y: 0.3}
 --- !u!1 &1613633586
 GameObject:
