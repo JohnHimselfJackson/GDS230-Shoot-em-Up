@@ -8,11 +8,10 @@ public class GenericEnemy : MonoBehaviour
 
     #region Variables & shit
     public enum EnemyType { Unassigned, Basic, SecRobot, GuardDog, SecDrone, Grunt }
-    
+    public enum EnemyState { Agroed, Passive }
+
     public bool enemySpotted;
-    public GameObject target;        
-    public GameObject projectile;
-    public GenericEnemyWeapon myWeapon = null;
+    public GameObject target;
 
     protected int myHealth;
     protected int myArmour;
@@ -20,8 +19,10 @@ public class GenericEnemy : MonoBehaviour
     protected float mySpeed;
     protected float returnSpeed;
 
-    public EnemyType myType = EnemyType.Unassigned;
+    protected EnemyType myType = EnemyType.Unassigned;
+    protected EnemyState myState = EnemyState.Passive;
 
+    protected GenericEnemyWeapon myWeapon = null;
     #endregion
 
     #region Speed Modification
@@ -73,7 +74,7 @@ public class GenericEnemy : MonoBehaviour
     // kills the enemy
     public void Kill()
     {
-        Destroy(gameObject);
+        //destroy the bad boi
     }
     #endregion
 
@@ -98,11 +99,6 @@ public class GenericEnemy : MonoBehaviour
     #endregion
 
     #region Other Functions
-
-    /* ----------------------------------------------------------------------------------- *\
-        while these functions are here dont use them as they are currently not functional
-    \* ----------------------------------------------------------------------------------- */ 
-
     //  allows the assigning of weapons
     protected virtual void AssignWeapon(GenericEnemyWeapon newWeapon)
     {

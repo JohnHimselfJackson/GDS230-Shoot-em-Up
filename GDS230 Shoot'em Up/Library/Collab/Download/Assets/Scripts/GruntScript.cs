@@ -11,19 +11,16 @@ public class GruntScript : GenericEnemy
     bool movingLeft = true;
     int patrolsDone = 0;
     bool shooting = true;
-    public string gunType;
 
+    [SerializeField]
+    GameObject bullet;
 
     public float movementSpeed = 0.2f;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(gunType == "Pistol")
-        {
-            gameObject.AddComponent<EnemyPistol>();
-            myWeapon = gameObject.GetComponent<EnemyPistol>();
-        }
+        
     }
 
     // Update is called once per frame
@@ -55,7 +52,6 @@ public class GruntScript : GenericEnemy
             enemySpotted = true;
             target = GO;
             patroling = true;
-            waitTime = -1;
             CheckFacing();
         }
     }
@@ -78,7 +74,9 @@ public class GruntScript : GenericEnemy
             if (shootingtime >1 && shooting)
             {
                 shooting = false;
-                shoot();
+                Invoke("shoot", 0.1f);
+                Invoke("shoot", 0.3f);
+                Invoke("shoot", 0.5f);
             }
         }
         else
@@ -207,7 +205,8 @@ public class GruntScript : GenericEnemy
 
     void shoot()
     {
-        myWeapon.StartShoot();
+        Instantiate(bullet, (transform.position - transform.right * 0.15f), Quaternion.identity);
+
     }
 
 }

@@ -10,7 +10,7 @@ public class GruntEditor : Editor
     {
         GruntScript GE = target as GruntScript;
         Handles.ArrowHandleCap(0, GE.transform.position, Quaternion.LookRotation(-GE.transform.right), 0.4f, EventType.Repaint);
-        if (GE.enemySpotted)
+        if (GE.EnemySpotted)
         {
             Handles.color = Color.red;
         }
