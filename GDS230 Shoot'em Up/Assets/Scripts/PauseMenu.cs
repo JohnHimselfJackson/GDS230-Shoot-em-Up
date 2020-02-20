@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject optionsMenuUI;
+    public GameObject customizeMenuUI;
 
     // Update is called once per frame
     void Update()
@@ -30,7 +31,8 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+
     }
 
     public void Pause()
@@ -47,13 +49,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void OptionsResume()
-    {
-        optionsMenuUI.SetActive(false);
-        GameIsPaused = false;
-        Time.timeScale = 1f;
-    }
-
     public void Quit()
     {
         Application.Quit();
@@ -61,12 +56,33 @@ public class PauseMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Additive);
     }
 
     public void Options()
     {
         optionsMenuUI.SetActive(true);
+        GameIsPaused = false;
+        Time.timeScale = 1f;
+    }
+
+    public void OptionsResume()
+    {
+        optionsMenuUI.SetActive(false);
+        GameIsPaused = false;
+        Time.timeScale = 1f;
+    }
+
+    public void Customize()
+    {
+        customizeMenuUI.SetActive(true);
+        GameIsPaused = true;
+        Time.timeScale = 1f;
+    }
+
+    public void CustomizeResume()
+    {
+        customizeMenuUI.SetActive(false);
         GameIsPaused = false;
         Time.timeScale = 1f;
     }
