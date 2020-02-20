@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.3, y: 0.6}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -102,7 +102,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.3, y: 0.6}
-    newSize: {x: 0.3, y: 0.6}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -148,9 +148,8 @@ MonoBehaviour:
   projectile: {fileID: 1925112057654832791, guid: 0c806e4ef55721a4d90982074258b046,
     type: 3}
   myWeapon: {fileID: 0}
-  myType: 5
-  gunType: Pistol
-  movementSpeed: 0.2
+  myType: 1
+  gunType: Rifle
 --- !u!60 &534508758407241178
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -169,7 +168,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.3, y: 0.6}
-    newSize: {x: 0.3, y: 0.6}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

@@ -7,7 +7,7 @@ public class EnemyPistol : GenericEnemyWeapon
     void Awake()
     {
         gunName = "Pistol";
-        shotArc = 20;
+        shotArc = 14;
         numberOfShots = 1;
         timeBetweenShots = 0;
         bulletSpeed = 80f;

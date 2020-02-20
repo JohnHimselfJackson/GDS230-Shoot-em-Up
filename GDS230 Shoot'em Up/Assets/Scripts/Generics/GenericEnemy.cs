@@ -7,7 +7,7 @@ public class GenericEnemy : MonoBehaviour
     //this is the class which all enemies will inherit from and include all of the basic stats as well as the methods for them to operate once given their more specific script
 
     #region Variables & shit
-    public enum EnemyType { Unassigned, Basic, SecRobot, GuardDog, SecDrone, Grunt }
+    public enum EnemyType { Unassigned, Grunt, SecRobot, GuardDog, SecDrone, Heavy }
     
     public bool enemySpotted;
     public GameObject target;        
@@ -79,10 +79,6 @@ public class GenericEnemy : MonoBehaviour
 
     #region Basic Functions
     //these are the generic functions that all enemies will have a variation of in some form but are left as empty virtuals here. They will be overrided in the with specific details in derived scipts.
-    public virtual void checkEnemy()
-    {
-        //i am legally blind
-    }
     public virtual void PatrolOrIdle()
     {
         //doin a stand or walk

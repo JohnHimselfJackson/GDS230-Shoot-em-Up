@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRifle : MonoBehaviour
+public class BossScript : GenericEnemy
 {
+
     // Start is called before the first frame update
     void Start()
     {

@@ -10,7 +10,6 @@ public class GenericEnemyWeapon : MonoBehaviour
     protected float bulletSpeed;
     protected Vector3 startDisplacement;
     public string gunName;
-    private GameObject shooterTemp;
 
 
     public void StartShoot()
