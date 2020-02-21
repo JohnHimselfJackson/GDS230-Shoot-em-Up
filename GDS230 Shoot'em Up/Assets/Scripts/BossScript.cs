@@ -195,7 +195,12 @@ public class BossScript : MonoBehaviour
 
     void Mortar()
     {
-        //does mortar things
+        //set a safe space for player to be able to go and DEFINETLY not be hit
+        //put mortar shots randomly in not that area
+        //shoot dumby shots
+        //put hit area in those areas
+        //make true shots fall from the sky
+        //on impact replace with explosions
     }
 
     void MiniGun()
