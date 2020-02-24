@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BossScript : MonoBehaviour
 {
+    public Vector3 bossAreaStart;
+    public Vector3 bossAreaPlayerLimit;
+    public Vector3 bossAreaEnd;
+    float playerWidth = 0.6f;
+
+
     bool areaEntered = false;
     bool immune = true;
     bool initiating = true;
@@ -196,6 +202,13 @@ public class BossScript : MonoBehaviour
     void Mortar()
     {
         //set a safe space for player to be able to go and DEFINETLY not be hit
+        float positionRange = bossAreaPlayerLimit.x - bossAreaStart.x - 2*playerWidth;
+        if(positionRange < 0)
+        {
+            print("Error expected as boss zone is too small");
+        }
+        float safeZoneX = Random.Range(0f, positionRange);
+
         //put mortar shots randomly in not that area
         //shoot dumby shots
         //put hit area in those areas
