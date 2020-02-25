@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuNav : MonoBehaviour
 {
-    public int i;
 
     public void Quit()
     {
@@ -13,8 +12,28 @@ public class MenuNav : MonoBehaviour
     }
 
     // Handles Scene Changes
-    public void MenuNavigator()
+    public void Menu()
     {
-        SceneManager.LoadScene(i, LoadSceneMode.Single);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    public void Options()
+    {
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
+    }
+
+    public void Customize()
+    {
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
+    }
+
+    public void Shop()
+    {
+        SceneManager.LoadScene(3, LoadSceneMode.Single);
+    }
+
+    public void Game()
+    {
+        SceneManager.LoadScene(4, LoadSceneMode.Single);
     }
 }
