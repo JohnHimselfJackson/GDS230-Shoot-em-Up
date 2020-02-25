@@ -4,20 +4,35 @@ using UnityEngine;
 
 public class BossScript : MonoBehaviour
 {
+    float[] mortarXs = new float[10];
     public Vector3 bossAreaStart;
     public Vector3 bossAreaPlayerLimit;
     public Vector3 bossAreaEnd;
+    public GameObject mortarShot;
+    public GameObject projectile;
+
     float playerWidth = 0.6f;
+
 
 
     bool areaEntered = false;
     bool immune = true;
     bool initiating = true;
+
+    bool MortarBarrageStarted = false;
+
+
+    int shotArc = 30;
+    int numberOfShots = 35;
+    float timeBetweenShots = 0.05f;
+    float bulletSpeed = 100f;
+    Vector3 startDisplacement;
+
     float initiatingTime = 4;
     float attackWaitTime = 0;
     int myHealth = 1000;
     int myArmour = 1;
-    int stage = 0;
+    int stage = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -100,7 +115,7 @@ public class BossScript : MonoBehaviour
             {
                 initiating = false;
                 immune = false;
-                initiatingTime = 5;
+                initiatingTime = 4;
             }
         }
         else
@@ -108,7 +123,7 @@ public class BossScript : MonoBehaviour
             if(attackWaitTime < 0)
             {
                 Mortar();
-                attackWaitTime = 10;
+                attackWaitTime = 5;
             }
             else
             {
@@ -133,7 +148,7 @@ public class BossScript : MonoBehaviour
             if (attackWaitTime < 0)
             {
                 MiniGun();
-                attackWaitTime = 10;
+                attackWaitTime = 6;
             }
             else
             {
@@ -158,7 +173,7 @@ public class BossScript : MonoBehaviour
             if (attackWaitTime < 0)
             {
                 Laser();
-                attackWaitTime = 10;
+                attackWaitTime = 8;
             }
             else
             {
@@ -202,32 +217,64 @@ public class BossScript : MonoBehaviour
     void Mortar()
     {
         //set a safe space for player to be able to go and DEFINETLY not be hit
-        float positionRange = bossAreaPlayerLimit.x - bossAreaStart.x - 2*playerWidth;
-        if(positionRange < 0)
+        float positionRange = bossAreaPlayerLimit.x - bossAreaStart.x - 2 * playerWidth;
+        if (positionRange < 0)
         {
             print("Error expected as boss zone is too small");
         }
         float safeZoneX = Random.Range(0f, positionRange);
+        for (int mm = 0; mm <= 9; mm++)
+        {
+            print(mm);
+            if (mm < 0)
+            {
+                mm = 0;
+            }
+            float potentialLandingLocation = Random.Range(bossAreaStart.x, bossAreaPlayerLimit.x);
+            if (potentialLandingLocation > safeZoneX - playerWidth && potentialLandingLocation < safeZoneX + playerWidth)
+            {
+                mm--;
+            }
+            else
+            {
 
-        //put mortar shots randomly in not that area
+                mortarXs[mm] = potentialLandingLocation;
+            }
+        }
+        MortarBarrageStarted = true;
+        print(MortarBarrageStarted + " " + attackWaitTime);
+        print("creating shots");
+
+        for (int mm = 0; mm <= 9; mm++)
+        {
+            Instantiate<GameObject>(mortarShot, new Vector3(mortarXs[mm], 0, 0), Quaternion.identity);
+        }
+
         //shoot dumby shots
         //put hit area in those areas
         //make true shots fall from the sky
-        //on impact replace with explosions
     }
 
     void MiniGun()
     {
-        //does mortar things
+        startDisplacement = -gameObject.transform.right * 0.15f;
+        for (int ss = 0; ss < numberOfShots; ss++)
+        {
+            Invoke("CreateBullet", timeBetweenShots * ss);
+        }
     }
 
     void Laser()
     {
-        //does mortar things
+        //gets a random angle from range
+        //shoots a raycast out for laser
+        //gets distance and makes lase thing out of parts to the point
+        //gradually changes angle giving a scanning laser effect
+        //does laser things
     }
     void Missles()
     {
-        //does mortar things
+        //does missile things
     }
 
 
@@ -235,6 +282,12 @@ public class BossScript : MonoBehaviour
     #endregion
 
 
+    void CreateBullet()
+    {
+        // determine rotation of bullet and the direction
+        GameObject bullet = Instantiate(projectile, (gameObject.transform.position + startDisplacement), gameObject.transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-shotArc / 2, shotArc / 2))));
+        bullet.GetComponent<Rigidbody2D>().AddForce(-bullet.transform.right * bulletSpeed);
+    }
 
 
 }

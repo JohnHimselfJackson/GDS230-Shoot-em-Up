@@ -7,9 +7,9 @@ public class HeavyScript : GenericEnemy
     #region Variables and Shit
     float followtime = 1.5f;
     float waitTime = -1;
-    float shootingtime = 0;
-    bool patrolling = false;
-    bool movingLeft = true;
+    float shootingtime = 0.2f;
+    public bool patrolling = true;
+    bool movingLeft = false;
     int patrolsDone = 0;
     bool shooting = true;
     RaycastHit2D leftHitGround;
@@ -24,7 +24,7 @@ void Start()
     //assigns a variables for the grunts stats
     myArmour = 1;
     myHealth = 15;
-    mySpeed = 0.2f;
+    mySpeed = 1;
     myType = EnemyType.Heavy;
 
     //checks the gun type that is set in the inspector and assigns the enemies gun depending on that
@@ -172,6 +172,7 @@ public override void PatrolOrIdle()
             {
                 //the enemy will move right via translate at the speed of its global speed
                 transform.Translate(transform.right * mySpeed * Time.deltaTime, Space.Self);
+                print("Moving Right");
             }
         }
         // if the above was false but it is still moving right but one of the checks is false this runs
@@ -187,13 +188,14 @@ public override void PatrolOrIdle()
 
         #region moving left
         //checks if the enemy is moving left and if it is possible to move left
-        if (!movingLeft && CheckWalk("Left"))
+        if (movingLeft && CheckWalk("Left"))
         {
             //checks that the object detected beneath the bot is infact able to be walked on
             if (leftHitGround.transform.gameObject.CompareTag("Barrier"))
             {
                 //the enemy will move left via translate at the speed of its global speed
                 transform.Translate(-transform.right * mySpeed * Time.deltaTime, Space.Self);
+                print("Moving Left");
             }
         }
         // if the above was false but it is still moving right but one of the checks is false this runs
