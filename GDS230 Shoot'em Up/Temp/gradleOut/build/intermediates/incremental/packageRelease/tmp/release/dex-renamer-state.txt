@@ -1,4 +1,0 @@
-#Tue Feb 25 12:35:49 AWST 2020
-base.0=C\:\\Users\\bmiller11\\Documents\\GitHub\\GDS230-Shoot-em-Up\\GDS230 Shoot'em Up\\Temp\\gradleOut\\build\\intermediates\\transforms\\dexMerger\\release\\0
-path.0=classes.dex
-renamed.0=classes.dex
