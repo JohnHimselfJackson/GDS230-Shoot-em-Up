@@ -58,3 +58,12 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+*.dll
+*.stamp
+*.dll
+*.dll
+*.dll
+*.dll
+*.dll
+*.dll
+*.meta
