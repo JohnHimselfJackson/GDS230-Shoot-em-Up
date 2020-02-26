@@ -3,6 +3,17 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - MenuNav
     - UIBehaviour
+    Unity.TextMeshPro.dll:
+    - TMPro.TMP_FontAsset
+    - TMPro.TMP_Settings
+    - TMPro.TMP_SpriteAsset
+    - TMPro.TMP_StyleSheet
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -14,8 +25,68 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
   sceneClasses:
+    Assets/Scenes/Brayden's TestScenes/Credits.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 9696}
+    - Class: 114
+      Script: {instanceID: 9844}
+    - Class: 114
+      Script: {instanceID: 9884}
+    - Class: 114
+      Script: {instanceID: 10252}
+    - Class: 114
+      Script: {instanceID: 10592}
+    - Class: 114
+      Script: {instanceID: 10688}
+    - Class: 114
+      Script: {instanceID: 11034}
+    - Class: 114
+      Script: {instanceID: 11218}
+    - Class: 114
+      Script: {instanceID: 11344}
+    - Class: 114
+      Script: {instanceID: 11376}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
     Assets/Scenes/Brayden's TestScenes/Customize.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -49,23 +120,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9674}
+      Script: {instanceID: 9696}
     - Class: 114
-      Script: {instanceID: 9822}
+      Script: {instanceID: 9844}
     - Class: 114
-      Script: {instanceID: 9862}
+      Script: {instanceID: 9884}
     - Class: 114
-      Script: {instanceID: 10230}
+      Script: {instanceID: 10252}
     - Class: 114
-      Script: {instanceID: 10570}
+      Script: {instanceID: 10592}
     - Class: 114
-      Script: {instanceID: 10666}
+      Script: {instanceID: 10688}
     - Class: 114
-      Script: {instanceID: 11012}
+      Script: {instanceID: 11034}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 11376}
     - Class: 114
-      Script: {instanceID: 15114}
+      Script: {instanceID: 16392}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -93,28 +164,42 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 109
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9674}
+      Script: {instanceID: 9696}
     - Class: 114
-      Script: {instanceID: 9822}
+      Script: {instanceID: 9844}
     - Class: 114
-      Script: {instanceID: 9862}
+      Script: {instanceID: 9884}
     - Class: 114
-      Script: {instanceID: 10230}
+      Script: {instanceID: 10252}
     - Class: 114
-      Script: {instanceID: 10570}
+      Script: {instanceID: 10272}
     - Class: 114
-      Script: {instanceID: 11012}
+      Script: {instanceID: 10592}
     - Class: 114
-      Script: {instanceID: 11196}
+      Script: {instanceID: 10688}
     - Class: 114
-      Script: {instanceID: 11322}
+      Script: {instanceID: 10802}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 10816}
+    - Class: 114
+      Script: {instanceID: 11034}
+    - Class: 114
+      Script: {instanceID: 11180}
+    - Class: 114
+      Script: {instanceID: 11218}
+    - Class: 114
+      Script: {instanceID: 11344}
+    - Class: 114
+      Script: {instanceID: 11376}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -142,13 +227,53 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 20
       Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 9696}
+    - Class: 114
+      Script: {instanceID: 9844}
+    - Class: 114
+      Script: {instanceID: 9884}
+    - Class: 114
+      Script: {instanceID: 10252}
+    - Class: 114
+      Script: {instanceID: 10592}
+    - Class: 114
+      Script: {instanceID: 10688}
+    - Class: 114
+      Script: {instanceID: 11034}
+    - Class: 114
+      Script: {instanceID: 11218}
+    - Class: 114
+      Script: {instanceID: 11344}
+    - Class: 114
+      Script: {instanceID: 11376}
+    - Class: 114
+      Script: {instanceID: 11408}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
     Assets/Scenes/Brayden's TestScenes/Store.unity:
     - Class: 1
@@ -504,7 +629,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 8c14b38b26f8e86023288696297b2f34
+      Hash: ccc10ddef8f331b010cb5a82cbe39ea7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIBehaviour
@@ -605,5 +730,6 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Brayden's TestScenes/Customize.unity
   - Assets/Scenes/Brayden's TestScenes/Store.unity
   - Assets/Scenes/Brayden's TestScenes/Game.unity
+  - Assets/Scenes/Brayden's TestScenes/Credits.unity
   playerPath: C:/Users/Brayd/OneDrive/Documents/GitHub/GDS230-Shoot-em-Up/GDS230 Shoot'em
-    Up/_Builds/Test_2.apk
+    Up/_Builds/Test_3.apk
