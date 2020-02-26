@@ -5,28 +5,24 @@ using UnityEngine.UI;
 
 public class UIBehaviour : MonoBehaviour
 {
-    Text myText;
+    public Text myText;
     public GameObject myParticle;
-
-    void Start()
-    {
-        myText = GetComponentInChildren<Text>();
-    }
+    public Transform offset;
 
     public void Embiggen(Transform myObject)
     {
         Debug.Log("Mouse Entered!");
         myObject.transform.localScale += new Vector3(0.1F, 0, 0);
+        myText = myObject.GetComponentInChildren<Text>();
         TextWhite();
-        Particle();
     }
 
     public void Smally(Transform myObject)
     {
         Debug.Log("Mouse Exit!");
         myObject.transform.localScale -= new Vector3(0.1F, 0, 0);
+        myText = myObject.GetComponentInChildren<Text>();
         TextBlack();
-        NoParticle();
     }
 
     void TextWhite()
@@ -37,15 +33,5 @@ public class UIBehaviour : MonoBehaviour
     void TextBlack()
     {
         myText.color = Color.black;
-    }
-
-    void Particle()
-    {
-        myParticle.SetActive(true);
-    }
-
-    void NoParticle()
-    {
-        myParticle.SetActive(false);
     }
 }
