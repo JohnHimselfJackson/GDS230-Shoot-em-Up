@@ -8,6 +8,11 @@ public class BossScript : MonoBehaviour
     public Vector3 bossAreaStart;
     public Vector3 bossAreaPlayerLimit;
     public Vector3 bossAreaEnd;
+
+    public Vector3 laserScanStart;
+    public Vector3 laserScanEnd;
+    public Vector3 LaserStartPoint;
+
     public GameObject mortarShot;
     public GameObject projectile;
 
