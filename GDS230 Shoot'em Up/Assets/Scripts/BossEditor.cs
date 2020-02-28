@@ -18,7 +18,8 @@ public class BossEditor : Editor
         Handles.color =  Color.white;
         Handles.DotHandleCap(0, BS.laserScanStart, Quaternion.identity, 0.1f, EventType.Repaint);
         Handles.DotHandleCap(0, BS.laserScanEnd, Quaternion.identity, 0.1f, EventType.Repaint);
-        Handles.DotHandleCap(0, BS.LaserStartPoint, Quaternion.identity, 0.1f, EventType.Repaint);
+        Handles.color = Color.magenta;
+        Handles.DotHandleCap(0, BS.laserStartPoint, Quaternion.identity, 0.1f, EventType.Repaint);
     }
 }
 

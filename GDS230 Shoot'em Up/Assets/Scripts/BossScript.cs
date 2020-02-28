@@ -11,10 +11,12 @@ public class BossScript : MonoBehaviour
 
     public Vector3 laserScanStart;
     public Vector3 laserScanEnd;
-    public Vector3 LaserStartPoint;
+    public Vector3 laserStartPoint;
+    public GameObject bossLaser = null;
 
     public GameObject mortarShot;
     public GameObject projectile;
+    public GameObject laserInstance;
 
     float playerWidth = 0.6f;
 
@@ -25,6 +27,9 @@ public class BossScript : MonoBehaviour
     bool initiating = true;
 
     bool MortarBarrageStarted = false;
+
+    bool laserSweepStarted = false;
+
 
 
     int shotArc = 30;
@@ -37,7 +42,7 @@ public class BossScript : MonoBehaviour
     float attackWaitTime = 0;
     int myHealth = 1000;
     int myArmour = 1;
-    int stage = 2;
+    int stage = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -170,7 +175,7 @@ public class BossScript : MonoBehaviour
             {
                 initiating = false;
                 immune = false;
-                initiatingTime = 5;
+                initiatingTime = 1;
             }
         }
         else
@@ -271,7 +276,47 @@ public class BossScript : MonoBehaviour
 
     void Laser()
     {
-        //gets a random angle from range
+        bool scanningRight = false;
+        Vector3 toStart = laserScanStart - laserStartPoint;
+        print(toStart);
+        Vector3 toEnd = laserScanEnd - laserStartPoint;
+        print(toEnd);
+        float angle = Vector3.Angle(toStart, toEnd);
+        print(angle);
+        float baseAngle = - Vector3.Angle(Vector3.down, toStart);
+        print(baseAngle);
+        if (!laserSweepStarted)
+        {
+            //gets a random angle from range
+            float startingAngle = baseAngle - Random.Range(0, angle);
+            print(startingAngle);
+            if (Mathf.Abs(startingAngle + baseAngle) > angle / 2)
+            {
+                scanningRight = true;
+            }
+            else
+            {
+                scanningRight = false;
+            }
+            print(scanningRight);
+            print(new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
+
+            RaycastHit2D initialHit = Physics2D.Raycast(laserScanStart, new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
+            
+            Vector3 hitPoint = initialHit.point;
+            print(hitPoint);
+            Vector3 laserVector = hitPoint - laserStartPoint;
+            float laserLength = Vector3.Distance(laserStartPoint, hitPoint);
+            print(laserLength);
+            Vector3 laserMidPoint = hitPoint + laserVector / 2;
+            bossLaser = Instantiate(laserInstance, laserMidPoint, Quaternion.Euler(0, 0, startingAngle));
+            bossLaser.GetComponent<SpriteRenderer>().size = new Vector2(bossLaser.GetComponent<SpriteRenderer>().size.x , laserLength);
+            bossLaser.GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Tiled;
+            laserSweepStarted = true;
+
+        }
+
+
         //shoots a raycast out for laser
         //gets distance and makes lase thing out of parts to the point
         //gradually changes angle giving a scanning laser effect
