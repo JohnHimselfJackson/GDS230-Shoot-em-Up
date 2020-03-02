@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - MenuNav
+    - SettingsPreferences
     - UIBehaviour
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
@@ -189,7 +190,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11376}
     - Class: 114
-      Script: {instanceID: 28528}
+      Script: {instanceID: 24254}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -220,6 +221,10 @@ ScriptsOnlyBuild:
     - Class: 49
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -273,6 +278,12 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
+      Script: {instanceID: 0}
     Assets/Scenes/Brayden's TestScenes/Options.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -287,6 +298,10 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -312,6 +327,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11376}
     - Class: 114
       Script: {instanceID: 11408}
+    - Class: 114
+      Script: {instanceID: 13024}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -327,6 +344,12 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
       Script: {instanceID: 0}
     Assets/Scenes/Brayden's TestScenes/Store.unity:
     - Class: 1
@@ -720,7 +743,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: ccc10ddef8f331b010cb5a82cbe39ea7
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIBehaviour
@@ -814,6 +837,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 9ef1d5a36d8ea00ca108c2c768928f50
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SettingsPreferences
   platform: 13
   scenePathNames:
   - Assets/Scenes/Brayden's TestScenes/Menu.unity
@@ -823,4 +852,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Brayden's TestScenes/Game.unity
   - Assets/Scenes/Brayden's TestScenes/Credits.unity
   playerPath: C:/Users/Brayd/OneDrive/Documents/GitHub/GDS230-Shoot-em-Up/GDS230 Shoot'em
-    Up/_Builds/Test_4.apk
+    Up/_Builds/Test_5.apk

@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class UIBehaviour : MonoBehaviour
 {
-    public Text myText;
-    public GameObject myParticle;
-    public Transform offset;
+    Text myText;
 
     public void Embiggen(Transform myObject)
     {
