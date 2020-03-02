@@ -194,7 +194,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11382}
     - Class: 114
-      Script: {instanceID: 22800}
+      Script: {instanceID: 14792}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -757,7 +757,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 6f7cb540f880e83a9ee403ae101da48f
+      Hash: 61f29fb5ee454ae5eec255d9539d0982
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CustomizePreferences
@@ -872,4 +872,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Brayden's TestScenes/Game.unity
   - Assets/Scenes/Brayden's TestScenes/Credits.unity
   playerPath: C:/Users/Brayd/OneDrive/Documents/GitHub/GDS230-Shoot-em-Up/GDS230 Shoot'em
-    Up/_Builds/Test_6.apk
+    Up/_Builds/Test_7.apk
