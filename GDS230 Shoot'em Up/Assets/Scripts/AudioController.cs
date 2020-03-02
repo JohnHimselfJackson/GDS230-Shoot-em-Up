@@ -36,33 +36,65 @@ public class AudioController : MonoBehaviour
         myIndex = myScene.buildIndex;
     }
 
+    /*Sets the audio to the desired game clip IF it isn't already set depending on which scene you are in.
+     Makes the */
     void HandleAudio()
     {
         switch (myIndex)
         {
             case 5:
                 NotDead();
-                myAudioSource.clip = creditsClip;
+                if (myAudioSource.clip != creditsClip)
+                {
+                    myAudioSource.clip = creditsClip;
+                    AudioSourceInactive();
+                }
+                AudioSourceActive();
                 break;
             case 4:
                 NotDead();
-                myAudioSource.clip = gameClip;
+                if (myAudioSource.clip != gameClip)
+                {
+                    myAudioSource.clip = gameClip;
+                    AudioSourceInactive();
+                }
+                AudioSourceActive();
                 break;
             case 3:
                 NotDead();
-                myAudioSource.clip = secondClip;
+                if (myAudioSource.clip != secondClip)
+                {
+                    myAudioSource.clip = secondClip;
+                    AudioSourceInactive();
+                }
+                AudioSourceActive();
                 break;
             case 2:
                 NotDead();
-                myAudioSource.clip = secondClip;
+                if (myAudioSource.clip != secondClip)
+                {
+                    myAudioSource.clip = secondClip;
+                    AudioSourceInactive();
+                }
+                AudioSourceActive();
                 break;
             case 1:
                 NotDead();
-                myAudioSource.clip = menuClip;
+                if (myAudioSource.clip != menuClip)
+                {
+                    myAudioSource.clip = menuClip;
+                    AudioSourceInactive();
+                }
+                AudioSourceActive();
                 break;
             case 0:
                 NotDead();
-                myAudioSource.clip = menuClip;
+                if (myAudioSource.clip != menuClip)
+                {
+                    myAudioSource.clip = menuClip;
+                    AudioSourceInactive();
+                }
+                AudioSourceActive();
                 break;
             default:
                 break;
@@ -73,4 +105,20 @@ public class AudioController : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
+
+    void Play()
+    {
+        myAudioSource.Play();
+    }
+
+    void AudioSourceActive()
+    {
+        myAudioSource.enabled = true;
+    }
+
+    void AudioSourceInactive()
+    {
+        myAudioSource.enabled = false;
+    }
+
 }
