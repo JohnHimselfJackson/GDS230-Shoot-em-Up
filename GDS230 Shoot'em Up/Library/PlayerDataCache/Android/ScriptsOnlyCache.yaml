@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AudioController
     - CustomizePreferences
+    - GameController
     - MenuNav
     - SettingsPreferences
     - UIBehaviour
@@ -19,7 +20,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.EventTrigger
@@ -186,20 +186,26 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10252}
     - Class: 114
+      Script: {instanceID: 10448}
+    - Class: 114
       Script: {instanceID: 10592}
     - Class: 114
       Script: {instanceID: 10688}
     - Class: 114
       Script: {instanceID: 11038}
     - Class: 114
-      Script: {instanceID: 11382}
+      Script: {instanceID: 11224}
     - Class: 114
-      Script: {instanceID: 14792}
+      Script: {instanceID: 11350}
+    - Class: 114
+      Script: {instanceID: 11382}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
