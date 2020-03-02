@@ -278,40 +278,41 @@ public class BossScript : MonoBehaviour
     {
         bool scanningRight = false;
         Vector3 toStart = laserScanStart - laserStartPoint;
-        print(toStart);
         Vector3 toEnd = laserScanEnd - laserStartPoint;
-        print(toEnd);
         float angle = Vector3.Angle(toStart, toEnd);
-        print(angle);
+        print("angle between start/end" + angle);
         float baseAngle = - Vector3.Angle(Vector3.down, toStart);
-        print(baseAngle);
+        print("base angle" + baseAngle);
         if (!laserSweepStarted)
         {
             //gets a random angle from range
             float startingAngle = baseAngle - Random.Range(0, angle);
-            print(startingAngle);
-            if (Mathf.Abs(startingAngle + baseAngle) > angle / 2)
-            {
-                scanningRight = true;
-            }
-            else
-            {
-                scanningRight = false;
-            }
-            print(scanningRight);
-            print(new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
+            //print(startingAngle);
+            //if (Mathf.Abs(startingAngle + baseAngle) > angle / 2)
+            //{
+            //    scanningRight = true;
+            //}
+            //else
+            //{
+            //    scanningRight = false;
+            //}
+            //print(scanningRight);
+            print("finds the direction vector of the laser" + new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
 
             RaycastHit2D initialHit = Physics2D.Raycast(laserScanStart, new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
             
             Vector3 hitPoint = initialHit.point;
-            print(hitPoint);
+            print("the hit point is "+hitPoint);
+            print(initialHit.collider.gameObject.name);
             Vector3 laserVector = hitPoint - laserStartPoint;
             float laserLength = Vector3.Distance(laserStartPoint, hitPoint);
             print(laserLength);
-            Vector3 laserMidPoint = hitPoint + laserVector / 2;
+            Vector3 laserMidPoint = hitPoint + (laserStartPoint / 2);
+            print("the lasers mid point is" + laserMidPoint);
             bossLaser = Instantiate(laserInstance, laserMidPoint, Quaternion.Euler(0, 0, startingAngle));
             bossLaser.GetComponent<SpriteRenderer>().size = new Vector2(bossLaser.GetComponent<SpriteRenderer>().size.x , laserLength);
             bossLaser.GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Tiled;
+            bossLaser.transform.localScale = new Vector3(1, 1, 1);
             laserSweepStarted = true;
 
         }
