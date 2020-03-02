@@ -31,7 +31,6 @@ public class AudioController : MonoBehaviour
     void Update()
     {
         HandleAudio();
-        Debug.Log(myIndex);
         myScene = SceneManager.GetActiveScene();
         myIndex = myScene.buildIndex;
     }
