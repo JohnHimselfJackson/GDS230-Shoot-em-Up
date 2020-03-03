@@ -49,13 +49,13 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void Pause()
+    public void Pause()
     {
         GameIsPaused = true;
         myState = states.Paused;
     }
 
-    void Resume()
+    public void Resume()
     {
         GameIsPaused = false;
         myState = states.Unpaused;

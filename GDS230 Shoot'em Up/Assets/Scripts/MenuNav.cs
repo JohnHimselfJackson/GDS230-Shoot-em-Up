@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuNav : MonoBehaviour
 {
-
     public void Quit()
     {
         Application.Quit();
