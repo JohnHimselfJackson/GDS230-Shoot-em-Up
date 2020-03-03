@@ -12,8 +12,8 @@ public class GruntScript : GenericEnemy
     bool movingLeft = true;
     int patrolsDone = 0;
     bool shooting = true;
-    RaycastHit2D leftHitGround;
-    RaycastHit2D rightHitGround;
+    RaycastHit2D[] leftHitGround;
+    RaycastHit2D[] rightHitGround;
     GameObject testTarget;
 
     public string gunType;
@@ -51,6 +51,7 @@ public class GruntScript : GenericEnemy
 
     void Update()
     {
+        ForceKill();
         //starts the enemies basic loop
 
         // if the enemy has spotted a target it goes into the attack/chase loop
@@ -167,7 +168,7 @@ public class GruntScript : GenericEnemy
             if (!movingLeft && CheckWalk("Right"))
             {
                 //checks that the object detected beneath the bot is infact able to be walked on
-                if (rightHitGround.transform.gameObject.CompareTag("Barrier"))
+                if (GroundCastHitBarrier(rightHitGround))
                 {
                     //the enemy will move right via translate at the speed of its global speed
                     transform.Translate(transform.right * mySpeed * Time.deltaTime, Space.Self);
@@ -182,7 +183,7 @@ public class GruntScript : GenericEnemy
                 patrolsDone++;
 
             }
-            else if (!movingLeft && !rightHitGround)
+            else if (!movingLeft && !GroundCastHitBarrier(rightHitGround))
             {
 
                 print("turning to go left");
@@ -191,9 +192,9 @@ public class GruntScript : GenericEnemy
                 movingLeft = true;
                 patrolsDone++;
             }
-            else if (!movingLeft && rightHitGround)
+            else if (!movingLeft && rightHitGround.Length > 0)
             {
-                if (rightHitGround.collider.gameObject.CompareTag("Player"))
+                if (!GroundCastHitBarrier(rightHitGround))
                 {
 
                     print("turning to go left");
@@ -209,9 +210,8 @@ public class GruntScript : GenericEnemy
             //checks if the enemy is moving left and if it is possible to move left
             if (movingLeft && CheckWalk("Left"))
             {
-                print("test");
                 //checks that the object detected beneath the bot is infact able to be walked on
-                if (leftHitGround.transform.gameObject.CompareTag("Barrier"))
+                if (GroundCastHitBarrier(leftHitGround))
                 {
                     //the enemy will move left via translate at the speed of its global speed
                     transform.Translate(-transform.right * mySpeed * Time.deltaTime, Space.Self);
@@ -225,7 +225,7 @@ public class GruntScript : GenericEnemy
                 movingLeft = false;
                 patrolsDone++;
             }
-            else if (movingLeft && !leftHitGround)
+            else if (movingLeft && !GroundCastHitBarrier(leftHitGround))
             {
                 print("turning to go right");
                 // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
@@ -233,9 +233,9 @@ public class GruntScript : GenericEnemy
                 movingLeft = false;
                 patrolsDone++;
             }
-            else if (movingLeft && leftHitGround)
+            else if (movingLeft && leftHitGround.Length > 0)
             {
-                if (leftHitGround.collider.gameObject.CompareTag("Player"))
+                if (!GroundCastHitBarrier(leftHitGround))
                 {
                     print("turning to go right");
                     // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
@@ -248,7 +248,7 @@ public class GruntScript : GenericEnemy
 
             #region patrol end
             // if the enemy has done 2 laps of their patrol area this runs
-            if (patrolsDone == 5)
+            if (patrolsDone == 2)
             {
                 //moves patrolsdone off 2 so this doesnt run again
                 patrolsDone++;
@@ -331,22 +331,19 @@ public class GruntScript : GenericEnemy
         if(direction == "Right")
         {
             //raycasts down for floor info
-            rightHitGround = Physics2D.Raycast(transform.position + new Vector3(0.15f, -0.31f, 0), Vector3.down, 0.2f);
+            rightHitGround = Physics2D.RaycastAll(transform.position + new Vector3(0.15f, -0.31f, 0), Vector3.down, 0.2f);
             //returns a bool based on if there is ground beneath is and if there nothing infront
-            if (rightHitGround)
-            {
-                returnThis = rightHitGround.collider.gameObject.CompareTag("Barrier") && !BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
-            }
+            returnThis = GroundCastHitBarrier(rightHitGround) && !BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
         }
         //if told to check right
         else if (direction == "Left")
         {
             //raycasts down for floor info
-            leftHitGround = Physics2D.Raycast(transform.position + new Vector3(-0.15f, -0.31f, 0), Vector3.down, 0.2f);
+            leftHitGround = Physics2D.RaycastAll(transform.position + new Vector3(-0.15f, -0.31f, 0), Vector3.down, 0.2f);
             //returns a bool based on if there is ground beneath is and if there nothing infront
-            if (leftHitGround)
+            if (leftHitGround.Length > 0)
             {
-                returnThis = leftHitGround.collider.gameObject.CompareTag("Barrier") && !BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
+                returnThis = GroundCastHitBarrier(leftHitGround) && !BoxCastForBarrier(transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
             }
         }
         //in the case a valid dirrection was not good
@@ -403,6 +400,19 @@ public class GruntScript : GenericEnemy
                 CheckFacing();
             }
         }
+    }
+
+    bool GroundCastHitBarrier(RaycastHit2D[] hits)
+    {
+        bool returnThis = false;
+        for (int cc = 0; cc < hits.Length; cc++)
+        {
+            if (hits[cc].collider.gameObject.CompareTag("Barrier"))
+            {
+                returnThis = true;
+            }
+        }
+        return returnThis;
     }
 
     #endregion

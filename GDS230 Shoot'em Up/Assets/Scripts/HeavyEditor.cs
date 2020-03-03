@@ -45,11 +45,11 @@ public class HeavyEditor : Editor
         }
         Handles.DrawWireCube(GE.transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0));
 
-        RaycastHit2D leftHitGround = Physics2D.Raycast(GE.transform.position + new Vector3(-0.15f, -0.31f, 0), Vector3.down, 0.2f);
-        RaycastHit2D rightHitGround = Physics2D.Raycast(GE.transform.position + new Vector3(0.15f, -0.31f, 0), Vector3.down, 0.2f);
-        if (leftHitGround != false)
+        RaycastHit2D[] leftHitGround = Physics2D.RaycastAll(GE.transform.position + new Vector3(-0.15f, -0.31f, 0), Vector3.down, 0.2f);
+        RaycastHit2D[] rightHitGround = Physics2D.RaycastAll(GE.transform.position + new Vector3(0.15f, -0.31f, 0), Vector3.down, 0.2f);
+        if (leftHitGround.Length > 0)
         {
-            if (leftHitGround.collider.CompareTag("Barrier"))
+            if (GroundCastHitBarrier(leftHitGround))
             {
                 Handles.color = Color.green;
             }
@@ -63,9 +63,9 @@ public class HeavyEditor : Editor
             Handles.color = Color.red;
         }
         Handles.ArrowHandleCap(0, GE.transform.position + new Vector3(-0.15f, -0.3f, 0), Quaternion.LookRotation(Vector3.down), 0.2f, EventType.Repaint);
-        if (rightHitGround != false)
+        if (rightHitGround.Length > 0)
         {
-            if (rightHitGround.collider.CompareTag("Barrier"))
+            if (GroundCastHitBarrier(rightHitGround))
             {
                 Handles.color = Color.green;
             }
@@ -80,12 +80,9 @@ public class HeavyEditor : Editor
         }
         Handles.ArrowHandleCap(0, GE.transform.position + new Vector3(0.15f, -0.3f, 0), Quaternion.LookRotation(Vector3.down), 0.2f, EventType.Repaint);
         #endregion
-
-
-
-
     }
 
+    #region Misc Functions
     bool BoxCastForBarrier(Vector3 bCOrigin, Vector3 size, string tagTested)
     {
         bool returnthis = false;
@@ -101,4 +98,18 @@ public class HeavyEditor : Editor
         }
         return returnthis;
     }
+
+    bool GroundCastHitBarrier(RaycastHit2D[] hits)
+    {
+        bool returnThis = false;
+        for (int cc = 0; cc < hits.Length; cc++)
+        {
+            if (hits[cc].collider.gameObject.CompareTag("Barrier"))
+            {
+                returnThis = true;
+            }
+        }
+        return returnThis;
+    }
+    #endregion
 }

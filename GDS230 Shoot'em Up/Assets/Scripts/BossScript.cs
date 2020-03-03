@@ -101,6 +101,7 @@ public class BossScript : MonoBehaviour
         }
         else if(myHealth < 250)
         {
+            //add missile stage here
             stage = 5;
             initiating = true;
             immune = true;

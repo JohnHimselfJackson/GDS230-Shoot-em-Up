@@ -122,7 +122,7 @@ public class GenericEnemy : MonoBehaviour
     public void DropLoot()
     {
         GameObject drop = Instantiate<GameObject>(drops[Random.Range(0, 2)],transform.position + Vector3.up *0.5f, Quaternion.identity);
-        drop.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)) * 2f);
+        drop.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(0f, 1f)) * 2f, ForceMode2D.Impulse);
     }
     #endregion
 
