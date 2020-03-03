@@ -13,10 +13,10 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
+        //Fire rate
         if (shooting && Time.time > nextFire)
         {
-
-            nextFire = Time.time + fireRate;
+            nextFire = Time.time + (1 / fireRate);
             Shoot();
         }
     }

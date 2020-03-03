@@ -578,4 +578,5 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Mac/Desktop/Build Android/CharacterControllerTestBuild.apk
+  playerPath: C:/Users/mpalmer6/Documents/GitHub/GDS230-Shoot-em-Up/Character Controller
+    (Side Scroller)/Test Build.apk

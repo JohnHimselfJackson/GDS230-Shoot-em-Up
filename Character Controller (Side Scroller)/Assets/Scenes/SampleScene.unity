@@ -1049,7 +1049,7 @@ PrefabInstance:
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 645
+      value: 1191.7
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
         type: 3}
@@ -1309,7 +1309,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
@@ -1619,7 +1619,7 @@ PrefabInstance:
     - target: {fileID: 193313784342525190, guid: 98f94eced8a95cd44915851b2ce32a49,
         type: 3}
       propertyPath: fireRate
-      value: 0.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1478639909855183330, guid: 98f94eced8a95cd44915851b2ce32a49,
         type: 3}
