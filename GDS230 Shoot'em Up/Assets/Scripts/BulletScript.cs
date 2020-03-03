@@ -9,7 +9,7 @@ public class BulletScript : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
-    void OnCollisionEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject GO = collision.gameObject;
         if (GO.CompareTag("Player"))
@@ -21,3 +21,4 @@ public class BulletScript : MonoBehaviour
 
 
 }
+    

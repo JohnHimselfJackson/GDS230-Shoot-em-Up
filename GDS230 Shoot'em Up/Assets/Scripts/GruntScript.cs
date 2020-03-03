@@ -8,12 +8,13 @@ public class GruntScript : GenericEnemy
     float followtime = 1.5f;
     float waitTime = -1;
     float shootingtime = 0;
-    bool patrolling = false;
+    bool patrolling = true;
     bool movingLeft = true;
     int patrolsDone = 0;
     bool shooting = true;
     RaycastHit2D leftHitGround;
     RaycastHit2D rightHitGround;
+    GameObject testTarget;
 
     public string gunType;
     #endregion
@@ -24,7 +25,7 @@ public class GruntScript : GenericEnemy
         //assigns a variables for the grunts stats
         myArmour = 0;
         myHealth = 5;
-        mySpeed = 0.35f;
+        mySpeed = 0.7f;
         myType = EnemyType.Grunt;
 
         //checks the gun type that is set in the inspector and assigns the enemies gun depending on that
@@ -83,13 +84,8 @@ public class GruntScript : GenericEnemy
         //checks if the object entering the trigger is the player
         if (GO.CompareTag("Player"))
         {
-            //assigns the variables related to having spotted the players
-            enemySpotted = true;
-            target = GO;
-            //sets variables so if the player leaves the range the enemy goes on a new patrol immediatly after
-            patrolling = true;
-            waitTime = -1;
-            CheckFacing();
+            testTarget = GO;
+            InvokeRepeating("PlayerRaycastable", 0f, 0.5f);
         }
     }
     void OnTriggerExit2D(Collider2D collision)
@@ -98,6 +94,7 @@ public class GruntScript : GenericEnemy
         //checks if the object exiting the trigger is the player
         if (GO.CompareTag("Player"))
         {
+            CancelInvoke("PlayerRaycastable");
             //assigns the variables related to having no longer got vision of the player
             enemySpotted = false;
             target = null;
@@ -132,7 +129,9 @@ public class GruntScript : GenericEnemy
             shooting = true;
         }
     }
-    //the follow is what allows the enemy to "chase" the player
+    /// <summary>
+    /// the follow is what allows the enemy to "chase" the player
+    /// </summary>
     public override void Follow()
     {
         //initially the direction of the enemy is checked to ensure that it is facing the player before it begins moving towards them
@@ -174,21 +173,43 @@ public class GruntScript : GenericEnemy
                     transform.Translate(transform.right * mySpeed * Time.deltaTime, Space.Self);
                 }
             }
-            // if the above was false but it is still moving right but one of the checks is false this runs
-            else if(!movingLeft && (rightHitGround == false || Physics2D.BoxCastAll(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.55f, 0), 0f, Vector3.zero).Length > 2))
+            else if(!movingLeft && BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier"))
             {
                 print("turning to go left");
                 // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 movingLeft = true;
-                patrolsDone ++;
+                patrolsDone++;
+
+            }
+            else if (!movingLeft && !rightHitGround)
+            {
+
+                print("turning to go left");
+                // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                movingLeft = true;
+                patrolsDone++;
+            }
+            else if (!movingLeft && rightHitGround)
+            {
+                if (rightHitGround.collider.gameObject.CompareTag("Player"))
+                {
+
+                    print("turning to go left");
+                    // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    movingLeft = true;
+                    patrolsDone++;
+                }
             }
             #endregion
 
             #region moving left
             //checks if the enemy is moving left and if it is possible to move left
-            if (!movingLeft && CheckWalk("Left"))
+            if (movingLeft && CheckWalk("Left"))
             {
+                print("test");
                 //checks that the object detected beneath the bot is infact able to be walked on
                 if (leftHitGround.transform.gameObject.CompareTag("Barrier"))
                 {
@@ -196,39 +217,49 @@ public class GruntScript : GenericEnemy
                     transform.Translate(-transform.right * mySpeed * Time.deltaTime, Space.Self);
                 }
             }
-            // if the above was false but it is still moving right but one of the checks is false this runs
-            else if (movingLeft && (leftHitGround == false || Physics2D.BoxCastAll(transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero).Length > 2))
+            else if (movingLeft && BoxCastForBarrier(transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier"))
+            {
+                print("turning to go right");
+                // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
+                transform.rotation = Quaternion.Euler(0,180, 0);
+                movingLeft = false;
+                patrolsDone++;
+            }
+            else if (movingLeft && !leftHitGround)
             {
                 print("turning to go right");
                 // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
                 transform.rotation = Quaternion.Euler(0, 180, 0);
                 movingLeft = false;
-                patrolsDone ++;
+                patrolsDone++;
+            }
+            else if (movingLeft && leftHitGround)
+            {
+                if (leftHitGround.collider.gameObject.CompareTag("Player"))
+                {
+                    print("turning to go right");
+                    // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    movingLeft = false;
+                    patrolsDone++;
+                }
             }
             #endregion
 
             #region patrol end
             // if the enemy has done 2 laps of their patrol area this runs
-            if (patrolsDone == 2)
+            if (patrolsDone == 5)
             {
                 //moves patrolsdone off 2 so this doesnt run again
-                patrolsDone ++;
+                patrolsDone++;
+                print("ending patrol");
                 //invokes the patrolling over function after a random amount of time
-                Invoke("PatrollingOver", Random.Range(2f, 4.5f ));
-            }
-
-            //IMPORTANT do not delete even though is says it isnt uses
-            //ends patrol so that the enemy goes back into an idle/wait phase
-            void PatrollingOver()
-            {
-                //resets the patrolling variables
-                patrolling = false;
-                patrolsDone = 0;
+                Invoke("PatrollingOver", Random.Range(2f, 4.5f));
             }
             #endregion
         }
         //if the enemy had a no wait time and patrolling false it puts the bot into a new idle/wait
-        else if (waitTime <= 0 )
+        else if (waitTime <= 0)
         {
             //sets a random wait time
             waitTime = Random.Range(4f, 10f);
@@ -239,7 +270,7 @@ public class GruntScript : GenericEnemy
             //decrease wait time
             waitTime -= Time.deltaTime;
             //runs when the wait time is over 
-            if(waitTime < 0)
+            if (waitTime < 0)
             {
                 //sets patrolling true to get enemy patrolling again
                 patrolling = true;
@@ -251,6 +282,15 @@ public class GruntScript : GenericEnemy
     #endregion
 
     #region OtherFunctions
+
+    //IMPORTANT do not delete even though is says it isnt uses
+    //ends patrol so that the enemy goes back into an idle/wait phase
+    void PatrollingOver()
+    {
+        //resets the patrolling variables
+        patrolling = false;
+        patrolsDone = 0;
+    }
     //checks that the enemy is facing the right direction
     void CheckFacing()
     {
@@ -293,7 +333,10 @@ public class GruntScript : GenericEnemy
             //raycasts down for floor info
             rightHitGround = Physics2D.Raycast(transform.position + new Vector3(0.15f, -0.31f, 0), Vector3.down, 0.2f);
             //returns a bool based on if there is ground beneath is and if there nothing infront
-            returnThis = rightHitGround != false && Physics2D.BoxCastAll(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.55f, 0), 0f, Vector3.zero).Length <= 2;
+            if (rightHitGround)
+            {
+                returnThis = rightHitGround.collider.gameObject.CompareTag("Barrier") && !BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
+            }
         }
         //if told to check right
         else if (direction == "Left")
@@ -301,7 +344,10 @@ public class GruntScript : GenericEnemy
             //raycasts down for floor info
             leftHitGround = Physics2D.Raycast(transform.position + new Vector3(-0.15f, -0.31f, 0), Vector3.down, 0.2f);
             //returns a bool based on if there is ground beneath is and if there nothing infront
-            returnThis = leftHitGround != false && Physics2D.BoxCastAll(transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero).Length <= 2;
+            if (leftHitGround)
+            {
+                returnThis = leftHitGround.collider.gameObject.CompareTag("Barrier") && !BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
+            }
         }
         //in the case a valid dirrection was not good
         else
@@ -313,5 +359,51 @@ public class GruntScript : GenericEnemy
         //returns set value
         return returnThis;
     }
+    //work around for checking if there is a wall infront
+    bool BoxCastForBarrier(Vector3 bCOrigin, Vector3 size, string tagTested)
+    {
+        bool returnthis = false;
+        {
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(bCOrigin, size, 0f, Vector3.zero);
+            for (int cc = 0; cc < hits.Length; cc++)
+            {
+                if (hits[cc].collider.gameObject.CompareTag(tagTested))
+                {
+                    returnthis = true;
+                }
+            }
+        }
+        return returnthis;
+    }
+
+    void PlayerRaycastable()
+    {
+        RaycastHit2D playerNotObstructed = Physics2D.Raycast(transform.position, testTarget.transform.position - transform.position);
+        if (playerNotObstructed.collider != null)
+        {
+            if (playerNotObstructed.collider.gameObject.CompareTag("Player"))
+            {
+                //assigns the variables related to having spotted the players
+                enemySpotted = true;
+                target = testTarget;
+                //sets variables so if the player leaves the range the enemy goes on a new patrol immediatly after
+                patrolling = true;
+                waitTime = -1;
+                CheckFacing();
+            }
+            else
+            {
+
+                //assigns the variables related to having spotted the players
+                enemySpotted = false;
+                target = null;
+                //sets variables so if the player leaves the range the enemy goes on a new patrol immediatly after
+                patrolling = true;
+                waitTime = -1;
+                CheckFacing();
+            }
+        }
+    }
+
     #endregion
 }

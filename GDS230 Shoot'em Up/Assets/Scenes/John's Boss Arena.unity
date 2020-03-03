@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 1012667233}
   - component: {fileID: 1012667235}
   - component: {fileID: 1012667236}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ MonoBehaviour:
   bossAreaStart: {x: -5, y: 0, z: 0}
   bossAreaPlayerLimit: {x: 1, y: 0, z: 0}
   bossAreaEnd: {x: 5, y: 0, z: 0}
-  laserScanStart: {x: 0.63, y: -0.55, z: 0}
+  laserScanStart: {x: 1.66, y: -0.55, z: 0}
   laserScanEnd: {x: -5, y: 1.33, z: 0}
   laserStartPoint: {x: 3.29, y: 0.19, z: 0}
   bossLaser: {fileID: 0}
@@ -1015,7 +1015,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090923920}
   - component: {fileID: 2090923921}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CritZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1043,7 +1043,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090923919}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

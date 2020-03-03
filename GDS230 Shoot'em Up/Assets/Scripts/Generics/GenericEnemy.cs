@@ -13,7 +13,8 @@ public class GenericEnemy : MonoBehaviour
     public GameObject target;        
     public GameObject projectile;
     public GenericEnemyWeapon myWeapon = null;
-
+    public bool forceKill = false;
+    public List<GameObject> drops = new List<GameObject>(); 
     protected int myHealth;
     protected int myArmour;
 
@@ -57,12 +58,8 @@ public class GenericEnemy : MonoBehaviour
     //  Used to damage an enemy Unit, simply make the imput the amount of damage you want to deal as this method takes armour into account and checks if the enemy still has health afterwards  **note** use this instead of directly altering armour
     public void DealDamage(int damage)
     {
-        int modifiedDamage = damage - myArmour;
-        if (modifiedDamage < 0)
-        {
-            modifiedDamage = 0;
-            return;
-        }
+
+        int modifiedDamage = damage * (1-(myArmour/100));
         //do damage animation
         myHealth -= modifiedDamage;
         if (myHealth <= 0)
@@ -73,8 +70,20 @@ public class GenericEnemy : MonoBehaviour
     // kills the enemy
     public void Kill()
     {
+        DropLoot();
         Destroy(gameObject);
     }
+
+    public void ForceKill()
+    {
+        if (forceKill)
+        {
+            Kill();
+        }
+    }
+
+
+
     #endregion
 
     #region Basic Functions
@@ -108,6 +117,12 @@ public class GenericEnemy : MonoBehaviour
     protected virtual void DropWeapon()
     {
         myWeapon = null;
+    }
+
+    public void DropLoot()
+    {
+        GameObject drop = Instantiate<GameObject>(drops[Random.Range(0, 2)],transform.position + Vector3.up *0.5f, Quaternion.identity);
+        drop.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)) * 2f);
     }
     #endregion
 

@@ -20,9 +20,11 @@ public class HeavyEditor : Editor
             Handles.color = Color.green;
         }
         Handles.SphereHandleCap(0, GE.transform.position + new Vector3(0, 0.4f), Quaternion.identity, 0.1f, EventType.Repaint);
-               
+
         #region MoveChecks
-        if (Physics2D.BoxCastAll(GE.transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero).Length <= 2)
+
+        //if (Physics2D.BoxCastAll(GE.transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero,0,8).Length == 0)
+        if (!BoxCastForBarrier(GE.transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier"))
         {
             Handles.color = Color.green;
         }
@@ -32,7 +34,8 @@ public class HeavyEditor : Editor
         }
         Handles.DrawWireCube(GE.transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0));
 
-        if (Physics2D.BoxCastAll(GE.transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero).Length <= 2)
+        //if (Physics2D.BoxCastAll(GE.transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero).Length <= 2)
+        if (!BoxCastForBarrier(GE.transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier"))
         {
             Handles.color = Color.green;
         }
@@ -59,7 +62,7 @@ public class HeavyEditor : Editor
         {
             Handles.color = Color.red;
         }
-        Handles.ArrowHandleCap(0,GE.transform.position + new Vector3(-0.15f, -0.3f, 0), Quaternion.LookRotation(Vector3.down), 0.2f, EventType.Repaint);
+        Handles.ArrowHandleCap(0, GE.transform.position + new Vector3(-0.15f, -0.3f, 0), Quaternion.LookRotation(Vector3.down), 0.2f, EventType.Repaint);
         if (rightHitGround != false)
         {
             if (rightHitGround.collider.CompareTag("Barrier"))
@@ -77,5 +80,25 @@ public class HeavyEditor : Editor
         }
         Handles.ArrowHandleCap(0, GE.transform.position + new Vector3(0.15f, -0.3f, 0), Quaternion.LookRotation(Vector3.down), 0.2f, EventType.Repaint);
         #endregion
+
+
+
+
+    }
+
+    bool BoxCastForBarrier(Vector3 bCOrigin, Vector3 size, string tagTested)
+    {
+        bool returnthis = false;
+        {
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(bCOrigin, size, 0f, Vector3.zero);
+            for (int cc = 0; cc < hits.Length; cc++)
+            {
+                if (hits[cc].collider.gameObject.CompareTag(tagTested))
+                {
+                    returnthis = true;
+                }
+            }
+        }
+        return returnthis;
     }
 }

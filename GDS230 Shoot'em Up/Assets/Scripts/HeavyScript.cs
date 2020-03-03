@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeavyScript : GenericEnemy
 {
-    #region Variables and Shit
+#region Variables and Shit
     float followtime = 1.5f;
     float waitTime = -1;
     float shootingtime = 0.2f;
@@ -14,6 +14,7 @@ public class HeavyScript : GenericEnemy
     bool shooting = true;
     RaycastHit2D leftHitGround;
     RaycastHit2D rightHitGround;
+    GameObject testTarget;
 
     public string gunType;
 #endregion
@@ -24,7 +25,7 @@ void Start()
     //assigns a variables for the grunts stats
     myArmour = 1;
     myHealth = 15;
-    mySpeed = 1;
+    mySpeed = 0.4f;
     myType = EnemyType.Heavy;
 
     //checks the gun type that is set in the inspector and assigns the enemies gun depending on that
@@ -46,10 +47,12 @@ void Start()
         gameObject.AddComponent<EnemyLMG>();
         myWeapon = gameObject.GetComponent<EnemyLMG>();
     }
+        CheckFacing();
 }
 
 void Update()
 {
+    ForceKill();
     //starts the enemies basic loop
 
     // if the enemy has spotted a target it goes into the attack/chase loop
@@ -73,42 +76,38 @@ void Update()
         PatrolOrIdle();
     }
 }
-#endregion
+    #endregion
 
 #region OnTriggers
-//the triggers are used to make detect if the player is in range and to set the player as the shooting target
-void OnTriggerEnter2D(Collider2D collision)
-{
-    GameObject GO = collision.gameObject;
-    //checks if the object entering the trigger is the player
-    if (GO.CompareTag("Player"))
+    //the triggers are used to make detect if the player is in range and to set the player as the shooting target
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        //assigns the variables related to having spotted the players
-        enemySpotted = true;
-        target = GO;
-        //sets variables so if the player leaves the range the enemy goes on a new patrol immediatly after
-        patrolling = true;
-        waitTime = -1;
-        CheckFacing();
+        GameObject GO = collision.gameObject;
+        //checks if the object entering the trigger is the player
+        if (GO.CompareTag("Player"))
+        {
+            testTarget = GO;
+            InvokeRepeating("PlayerRaycastable", 0f, 0.5f);
+        }
     }
-}
-void OnTriggerExit2D(Collider2D collision)
-{
-    GameObject GO = collision.gameObject;
-    //checks if the object exiting the trigger is the player
-    if (GO.CompareTag("Player"))
+    void OnTriggerExit2D(Collider2D collision)
     {
-        //assigns the variables related to having no longer got vision of the player
-        enemySpotted = false;
-        target = null;
-        CheckFacing();
+        GameObject GO = collision.gameObject;
+        //checks if the object exiting the trigger is the player
+        if (GO.CompareTag("Player"))
+        {
+            CancelInvoke("PlayerRaycastable");
+            //assigns the variables related to having no longer got vision of the player
+            enemySpotted = false;
+            target = null;
+            CheckFacing();
+        }
     }
-}
 #endregion
 
 #region Basic Functions
-// the attack function is what is called whenever the bot is attacking the player
-public override void Attack()
+    // the attack function is what is called whenever the bot is attacking the player
+    public override void Attack()
 {
     //for attacking it works off of the idea of shoot time, this allows the attacking phase to be broken in to two segments. The Pause and the attack. this gives the player something to react to as the pause, which is always the same length, always happens before they shoot.
     //with this if the enemy is still in the attacking phase and not ready to move on (the shooting time < 1.5 seconds) this if statement runs
@@ -172,11 +171,10 @@ public override void PatrolOrIdle()
             {
                 //the enemy will move right via translate at the speed of its global speed
                 transform.Translate(transform.right * mySpeed * Time.deltaTime, Space.Self);
-                print("Moving Right");
             }
         }
         // if the above was false but it is still moving right but one of the checks is false this runs
-        else if (!movingLeft && (rightHitGround == false || Physics2D.BoxCastAll(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.55f, 0), 0f, Vector3.zero).Length > 2))
+        else if (!movingLeft && (rightHitGround == false || BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier")))
         {
             print("turning to go left");
             // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
@@ -195,11 +193,10 @@ public override void PatrolOrIdle()
             {
                 //the enemy will move left via translate at the speed of its global speed
                 transform.Translate(-transform.right * mySpeed * Time.deltaTime, Space.Self);
-                print("Moving Left");
             }
         }
         // if the above was false but it is still moving right but one of the checks is false this runs
-        else if (movingLeft && (leftHitGround == false || Physics2D.BoxCastAll(transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero).Length > 2))
+        else if (movingLeft && (leftHitGround == false || BoxCastForBarrier(transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier")))
         {
             print("turning to go right");
             // this changes the way that the bot faces and allows them to turn and face while also adding to the patrol end counter
@@ -215,22 +212,14 @@ public override void PatrolOrIdle()
         {
             //moves patrolsdone off 2 so this doesnt run again
             patrolsDone++;
+            print("ending patrol");
             //invokes the patrolling over function after a random amount of time
-            Invoke("PatrollingOver", Random.Range(2f, 4.5f));
-        }
-
-        //IMPORTANT do not delete even though is says it isnt uses
-        //ends patrol so that the enemy goes back into an idle/wait phase
-        void PatrollingOver()
-        {
-            //resets the patrolling variables
-            patrolling = false;
-            patrolsDone = 0;
+            Invoke("PatrollingOver",Random.Range(2F,4.5f));
         }
         #endregion
-    }
-    //if the enemy had a no wait time and patrolling false it puts the bot into a new idle/wait
-    else if (waitTime <= 0)
+        }
+        //if the enemy had a no wait time and patrolling false it puts the bot into a new idle/wait
+        else if (waitTime <= 0)
     {
         //sets a random wait time
         waitTime = Random.Range(4f, 10f);
@@ -250,70 +239,138 @@ public override void PatrolOrIdle()
     }
 
 }
-#endregion
+    #endregion
 
 #region OtherFunctions
-//checks that the enemy is facing the right direction
-void CheckFacing()
-{
-    //checks if a target is selected
-    if (target != null)
+
+    //IMPORTANT do not delete even though is says it isnt uses
+    //ends patrol so that the enemy goes back into an idle/wait phase
+    void PatrollingOver()
     {
-        //checks if the target is to the right
-        if (target.transform.position.x - transform.position.x > 0)
+        //resets the patrolling variables
+        patrolling = false;
+        patrolsDone = 0;
+    }
+    //checks that the enemy is facing the right direction
+    void CheckFacing()
+    {
+        //checks if a target is selected
+        if (target != null)
         {
-            //target right variables set
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            movingLeft = false;
+            //checks if the target is to the right
+            if (target.transform.position.x - transform.position.x > 0)
+            {
+                //target right variables set
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                movingLeft = false;
+            }
+            //since target is not right then assumed left
+            else
+            {   
+                //target left variables set
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                movingLeft = true;
+            }
         }
-        //since target is not right then assumed left
+        else if (movingLeft)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
         else
         {
-            //target left variables set
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            movingLeft = true;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
-}
 
-//works to shoot the enemies gun via the attached gun script
-void shoot()
-{
-    //calls weapons shoot funtion
-    myWeapon.StartShoot();
-}
+    //works to shoot the enemies gun via the attached gun script
+    void shoot()
+    {
+        //calls weapons shoot funtion
+        myWeapon.StartShoot();
+    }
 
-//Works to check if the ground can be walked on/to by the enemy. is given the direction as either "Right" or "Left" and return a bool if the terrain is naviable
-bool CheckWalk(string direction)
-{
-    //returns false be default
-    bool returnThis = false;
+    //Works to check if the ground can be walked on/to by the enemy. is given the direction as either "Right" or "Left" and return a bool if the terrain is naviable
+    bool CheckWalk(string direction)
+    {
+        //returns false be default
+        bool returnThis = false;
 
-    //if told to check right
-    if (direction == "Right")
-    {
-        //raycasts down for floor info
-        rightHitGround = Physics2D.Raycast(transform.position + new Vector3(0.15f, -0.31f, 0), Vector3.down, 0.2f);
-        //returns a bool based on if there is ground beneath is and if there nothing infront
-        returnThis = rightHitGround != false && Physics2D.BoxCastAll(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.55f, 0), 0f, Vector3.zero).Length <= 2;
+        //if told to check right
+        if (direction == "Right")
+        {
+            //raycasts down for floor info
+            rightHitGround = Physics2D.Raycast(transform.position + new Vector3(0.15f, -0.31f, 0), Vector3.down, 0.2f);
+            //returns a bool based on if there is ground beneath is and if there nothing infront
+            if (rightHitGround)
+            {
+                returnThis = rightHitGround.collider.gameObject.CompareTag("Barrier") && !BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
+            }
+        }
+        //if told to check right
+        else if (direction == "Left")
+        {
+            //raycasts down for floor info
+            leftHitGround = Physics2D.Raycast(transform.position + new Vector3(-0.15f, -0.31f, 0), Vector3.down, 0.2f);
+            //returns a bool based on if there is ground beneath is and if there nothing infront
+            if (leftHitGround)
+            {
+                returnThis = leftHitGround.collider.gameObject.CompareTag("Barrier") && !BoxCastForBarrier(transform.position + new Vector3(0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), "Barrier");
+            }
+        }
+        //in the case a valid dirrection was not good
+        else
+        {
+            //debugs and returns false
+            print("The direction given for " + gameObject.name + "was incorrect");
+            return false;
+        }
+        //returns set value
+        return returnThis;
     }
-    //if told to check right
-    else if (direction == "Left")
+    //work around for checking if there is a wall infront
+    bool BoxCastForBarrier(Vector3 bCOrigin, Vector3 size, string tagTested)
     {
-        //raycasts down for floor info
-        leftHitGround = Physics2D.Raycast(transform.position + new Vector3(-0.15f, -0.31f, 0), Vector3.down, 0.2f);
-        //returns a bool based on if there is ground beneath is and if there nothing infront
-        returnThis = leftHitGround != false && Physics2D.BoxCastAll(transform.position + new Vector3(-0.18f, 0, 0), new Vector3(0.05f, 0.6f, 0), 0f, Vector3.zero).Length <= 2;
+        bool returnthis = false;
+        {
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(bCOrigin, size, 0f, Vector3.zero);
+            for (int cc = 0; cc < hits.Length; cc++)
+            {
+                if (hits[cc].collider.gameObject.CompareTag(tagTested))
+                {
+                    returnthis = true;
+                }
+            }
+        }
+        return returnthis;
     }
-    //in the case a valid dirrection was not good
-    else
+
+    void PlayerRaycastable()
     {
-        //debugs and returns false
-        print("The direction given for " + gameObject.name + "was incorrect");
-        return false;
+        RaycastHit2D playerNotObstructed = Physics2D.Raycast(transform.position, testTarget.transform.position - transform.position);
+        if (playerNotObstructed.collider != null)
+        {
+            if (playerNotObstructed.collider.gameObject.CompareTag("Player"))
+            {
+                //assigns the variables related to having spotted the players
+                enemySpotted = true;
+                target = testTarget;
+                //sets variables so if the player leaves the range the enemy goes on a new patrol immediatly after
+                patrolling = true;
+                waitTime = -1;
+                CheckFacing();
+            }
+            else
+            {
+
+                //assigns the variables related to having spotted the players
+                enemySpotted = false;
+                target = null;
+                //sets variables so if the player leaves the range the enemy goes on a new patrol immediatly after
+                patrolling = true;
+                waitTime = -1;
+                CheckFacing();
+            }
+        }
     }
-    //returns set value
-    return returnThis;
-}
     #endregion
 }

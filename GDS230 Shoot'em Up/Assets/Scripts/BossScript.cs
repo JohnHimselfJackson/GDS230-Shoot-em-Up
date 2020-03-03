@@ -14,6 +14,7 @@ public class BossScript : MonoBehaviour
     public Vector3 laserStartPoint;
     public GameObject bossLaser = null;
 
+    public GameObject player;
     public GameObject mortarShot;
     public GameObject projectile;
     public GameObject laserInstance;
@@ -42,7 +43,7 @@ public class BossScript : MonoBehaviour
     float attackWaitTime = 0;
     int myHealth = 1000;
     int myArmour = 1;
-    int stage = 3;
+    int stage = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +57,10 @@ public class BossScript : MonoBehaviour
         switch (stage)
         {
             case 0:
-                //idling waiting for player
+                if (player.transform.position.x > bossAreaStart.x)
+                {
+                    stage = 1;
+                }
                 break;
             case 1:
                 StageOne();
@@ -97,7 +101,7 @@ public class BossScript : MonoBehaviour
         }
         else if(myHealth < 250)
         {
-            stage = 4;
+            stage = 5;
             initiating = true;
             immune = true;
         }
@@ -218,7 +222,7 @@ public class BossScript : MonoBehaviour
     }
     void DeathStage()
     {
-
+        print("boss dead");
     }
     #endregion
 
@@ -235,7 +239,6 @@ public class BossScript : MonoBehaviour
         float safeZoneX = Random.Range(0f, positionRange);
         for (int mm = 0; mm <= 9; mm++)
         {
-            print(mm);
             if (mm < 0)
             {
                 mm = 0;
@@ -252,8 +255,6 @@ public class BossScript : MonoBehaviour
             }
         }
         MortarBarrageStarted = true;
-        print(MortarBarrageStarted + " " + attackWaitTime);
-        print("creating shots");
 
         for (int mm = 0; mm <= 9; mm++)
         {
@@ -273,42 +274,28 @@ public class BossScript : MonoBehaviour
             Invoke("CreateBullet", timeBetweenShots * ss);
         }
     }
-
     void Laser()
     {
         bool scanningRight = false;
         Vector3 toStart = laserScanStart - laserStartPoint;
         Vector3 toEnd = laserScanEnd - laserStartPoint;
+
+
         float angle = Vector3.Angle(toStart, toEnd);
-        print("angle between start/end" + angle);
+
         float baseAngle = - Vector3.Angle(Vector3.down, toStart);
-        print("base angle" + baseAngle);
         if (!laserSweepStarted)
         {
-            //gets a random angle from range
             float startingAngle = baseAngle - Random.Range(0, angle);
-            //print(startingAngle);
-            //if (Mathf.Abs(startingAngle + baseAngle) > angle / 2)
-            //{
-            //    scanningRight = true;
-            //}
-            //else
-            //{
-            //    scanningRight = false;
-            //}
-            //print(scanningRight);
-            print("finds the direction vector of the laser" + new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
 
-            RaycastHit2D initialHit = Physics2D.Raycast(laserScanStart, new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
+            RaycastHit2D initialHit = Physics2D.Raycast(laserStartPoint, new Vector2(Mathf.Cos(Mathf.Deg2Rad * (startingAngle - 90)), Mathf.Sin(Mathf.Deg2Rad * (startingAngle - 90))));
             
             Vector3 hitPoint = initialHit.point;
-            print("the hit point is "+hitPoint);
-            print(initialHit.collider.gameObject.name);
             Vector3 laserVector = hitPoint - laserStartPoint;
             float laserLength = Vector3.Distance(laserStartPoint, hitPoint);
-            print(laserLength);
-            Vector3 laserMidPoint = hitPoint + (laserStartPoint / 2);
-            print("the lasers mid point is" + laserMidPoint);
+            Vector3 laserMidPoint = (hitPoint + laserStartPoint) / 2;
+
+
             bossLaser = Instantiate(laserInstance, laserMidPoint, Quaternion.Euler(0, 0, startingAngle));
             bossLaser.GetComponent<SpriteRenderer>().size = new Vector2(bossLaser.GetComponent<SpriteRenderer>().size.x , laserLength);
             bossLaser.GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Tiled;
