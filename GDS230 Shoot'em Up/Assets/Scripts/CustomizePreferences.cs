@@ -6,11 +6,18 @@ using UnityEngine.Events;
 
 public class CustomizePreferences : MonoBehaviour
 {
+    //A reference to our store helper script.
     public StoreHelper storeHelper;
+
     //A reference to our 3 dropdowns for customization.
     public Dropdown charactersDropDown;
     public Dropdown skinsDropDown;
     public Dropdown weaponsDropDown;
+
+    // A reference to our customize error message texts.
+    public Text ownerText;
+    public Text characterOwnText;
+    public Text weaponOwnText;
 
     //A reference to our 3 images that appear above the dropdowns.
     public Image skinPicture;
@@ -62,8 +69,8 @@ public class CustomizePreferences : MonoBehaviour
     void Update()
     {
         StoreHelper.i = skinsDropDown.value;
-        Debug.Log(StoreHelper.i);
         StoreHelper.e = charactersDropDown.value;
+        Debug.Log(StoreHelper.e);
         StoreHelper.o = weaponsDropDown.value;
         CharacterState();
         PictureState();
@@ -95,19 +102,64 @@ public class CustomizePreferences : MonoBehaviour
         switch (StoreHelper.i)
         {
             case 4:
-                skinPicture.color = Color.black;
+                if (StoreHelper.isBlackSold == 1)
+                {
+                    skinPicture.color = Color.black;
+                    ownerText.text = "NICE SKIN".ToString();
+                }
+                else
+                {
+                    skinPicture.color = Color.white;
+                    ownerText.text = "YOU DO NOT OWN THIS SKIN".ToString();
+                }
                 break;
             case 3:
-                skinPicture.color = Color.yellow;
-                break;
+                if (StoreHelper.isYellowSold == 1)
+                {
+                    skinPicture.color = Color.yellow;
+                    ownerText.text = "HAPPY SKIN".ToString();
+                }
+                else
+                {
+                    skinPicture.color = Color.white;
+                    ownerText.text = "YOU DO NOT OWN THIS SKIN".ToString();
+                }
+                    break;
             case 2:
-                skinPicture.color = Color.green;
+                if (StoreHelper.isGreenSold == 1)
+                {
+                    skinPicture.color = Color.green;
+                    ownerText.text = "GROOVY SKIN".ToString();
+                }
+                else
+                {
+                    skinPicture.color = Color.white;
+                    ownerText.text = "YOU DO NOT OWN THIS SKIN".ToString();
+                }
                 break;
             case 1:
-                skinPicture.color = Color.blue;
+                if (StoreHelper.isBlueSold == 1)
+                {
+                    skinPicture.color = Color.blue;
+                    ownerText.text = "COOL SKIN".ToString();
+                }
+                else
+                {
+                    skinPicture.color = Color.white;
+                    ownerText.text = "YOU DO NOT OWN THIS SKIN".ToString();
+                }
                 break;
             case 0:
-                skinPicture.color = Color.red;
+                if (StoreHelper.isRedSold == 1)
+                {
+                    skinPicture.color = Color.red;
+                    ownerText.text = "SMOKING SKIN".ToString();
+                }
+                else
+                {
+                    skinPicture.color = Color.white;
+                    ownerText.text = "YOU DO NOT OWN THIS SKIN".ToString();
+                }
                 break;
             default:
                 Debug.Log("REEEEE");
@@ -120,20 +172,65 @@ public class CustomizePreferences : MonoBehaviour
     {
         switch (StoreHelper.e)
         {
-            case 4:
-                charPicture.color = Color.black;
-                break;
-            case 3:
-                charPicture.color = Color.yellow;
-                break;
-            case 2:
-                charPicture.color = Color.green;
+            case 0:
+                if (StoreHelper.isTheMackSold == 1)
+                {
+                    charPicture.color = Color.red;
+                    characterOwnText.text = "Smacko with El Macko!".ToString();
+                }
+                else
+                {
+                    charPicture.color = Color.white;
+                    characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                }
                 break;
             case 1:
-                charPicture.color = Color.blue;
+                if (StoreHelper.isJohnsonSold == 1)
+                {
+                    charPicture.color = Color.blue;
+                    characterOwnText.text = "Johnson eating 'EM UP!".ToString();
+                }
+                else
+                {
+                    charPicture.color = Color.white;
+                    characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                }
                 break;
-            case 0:
-                charPicture.color = Color.red;
+            case 2:
+                if (StoreHelper.isCarbonFiberSold == 1)
+                {
+                    charPicture.color = Color.green;
+                    characterOwnText.text = "Tough as Nails!".ToString();
+                }
+                else
+                {
+                    charPicture.color = Color.white;
+                    characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                }
+                break;
+            case 3:
+                if (StoreHelper.isThornlieSold == 1)
+                {
+                    charPicture.color = Color.yellow;
+                    characterOwnText.text = "Beware the Thorns!".ToString();
+                }
+                else
+                {
+                    charPicture.color = Color.white;
+                    characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                }
+                break;
+            case 4:
+                if (StoreHelper.isMillerinoSold == 1)
+                {
+                    charPicture.color = Color.black;
+                    characterOwnText.text = "Miller of souls".ToString();
+                }
+                else
+                {
+                    charPicture.color = Color.white;
+                    characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                }
                 break;
             default:
                 Debug.Log("REEEEE");
