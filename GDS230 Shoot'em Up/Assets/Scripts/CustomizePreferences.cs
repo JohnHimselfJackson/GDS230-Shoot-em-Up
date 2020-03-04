@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class CustomizePreferences : MonoBehaviour
 {
+    public StoreHelper storeHelper;
     //A reference to our 3 dropdowns for customization.
     public Dropdown charactersDropDown;
     public Dropdown skinsDropDown;
@@ -20,12 +21,6 @@ public class CustomizePreferences : MonoBehaviour
     const string charName = "charactersoption";
     const string skinName = "skinsoption";
     const string weaponName = "weaponsoption";
-
-    //These integers handle how our Pictures for the CHARACTERS, SKINS & WEAPONS change.
-    public int i;
-    public int e;
-    public int o;
-
 
     // Handles what happens to our customization prefs during a Unity event & saves them.
     void Awake()
@@ -51,22 +46,25 @@ public class CustomizePreferences : MonoBehaviour
 
     void Start()
     {
+        storeHelper = GetComponent<StoreHelper>();
+
         //Sets our pref values to default values initially.
         charactersDropDown.value = PlayerPrefs.GetInt(charName, 0);
         skinsDropDown.value = PlayerPrefs.GetInt(skinName, 0);
         weaponsDropDown.value = PlayerPrefs.GetInt(weaponName, 0);
 
         //sets our integer (i, e, o) values to be the same as its corresponding Dropdown value.
-        i = skinsDropDown.value;
-        e = charactersDropDown.value;
-        o = weaponsDropDown.value;
+        StoreHelper.i = skinsDropDown.value;
+        StoreHelper.e = charactersDropDown.value;
+        StoreHelper.o = weaponsDropDown.value;
     }
 
     void Update()
     {
-        i = skinsDropDown.value;
-        e = charactersDropDown.value;
-        o = weaponsDropDown.value;
+        StoreHelper.i = skinsDropDown.value;
+        Debug.Log(StoreHelper.i);
+        StoreHelper.e = charactersDropDown.value;
+        StoreHelper.o = weaponsDropDown.value;
         CharacterState();
         PictureState();
         WeaponState();
@@ -94,7 +92,7 @@ public class CustomizePreferences : MonoBehaviour
     //Handles what color our Skin Picture changes to depending on i.
     void PictureState()
     {
-        switch (i)
+        switch (StoreHelper.i)
         {
             case 4:
                 skinPicture.color = Color.black;
@@ -120,7 +118,7 @@ public class CustomizePreferences : MonoBehaviour
     //Handles what color our Character Picture changes to depending on e.
     void CharacterState()
     {
-        switch (e)
+        switch (StoreHelper.e)
         {
             case 4:
                 charPicture.color = Color.black;
@@ -145,7 +143,7 @@ public class CustomizePreferences : MonoBehaviour
 
     void WeaponState()
     {
-        switch (o)
+        switch (StoreHelper.o)
         {
             case 4:
                 weaponPicture.color = Color.black;
