@@ -19,6 +19,8 @@ public class CustomizePreferences : MonoBehaviour
     public Text characterOwnText;
     public Text weaponOwnText;
 
+    public Text bioText;
+
     //A reference to our 3 images that appear above the dropdowns.
     public Image skinPicture;
     public Image weaponPicture;
@@ -106,6 +108,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     skinPicture.color = Color.black;
                     ownerText.text = "NICE SKIN".ToString();
+                    bioText.text = "".ToString();
                 }
                 else
                 {
@@ -118,6 +121,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     skinPicture.color = Color.yellow;
                     ownerText.text = "HAPPY SKIN".ToString();
+                    bioText.text = "".ToString();
                 }
                 else
                 {
@@ -130,6 +134,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     skinPicture.color = Color.green;
                     ownerText.text = "GROOVY SKIN".ToString();
+                    bioText.text = "".ToString();
                 }
                 else
                 {
@@ -142,6 +147,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     skinPicture.color = Color.blue;
                     ownerText.text = "COOL SKIN".ToString();
+                    bioText.text = "".ToString();
                 }
                 else
                 {
@@ -177,11 +183,13 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     charPicture.color = Color.red;
                     characterOwnText.text = "Smacko with El Macko!".ToString();
+                    bioText.text = "Age: 21. Height: 5'11`'' Loves cookies and shooting off the heads of his enemies. Mack Attack has got your back! Abandoned as a young child, Mack grew up baking cookies at his orphanage for hours on end. Churning out those double fudge & white choc cookies to raise money for more cookie dough. Nowadays Mack finds young cubs on the street and raises them as his own. Raises them into unstobbable killing machines of mega chocolatey death. He also teaches them how to bake, allowing for each individual to branch out into other non-lethal professions. Mack owns several bakeries and Cafes where he employs the youth of tomorrow. Thats the way the cookie crumbles!".ToString();
                 }
                 else
                 {
                     charPicture.color = Color.white;
                     characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                    bioText.text = "You don't deserve to know my backstory FILTH!!!".ToString();
                 }
                 break;
             case 1:
@@ -194,6 +202,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     charPicture.color = Color.white;
                     characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                    bioText.text = "You don't deserve to know my backstory FILTH!!!".ToString();
                 }
                 break;
             case 2:
@@ -206,6 +215,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     charPicture.color = Color.white;
                     characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                    bioText.text = "You don't deserve to know my backstory FILTH!!!".ToString();
                 }
                 break;
             case 3:
@@ -218,6 +228,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     charPicture.color = Color.white;
                     characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                    bioText.text = "You don't deserve to know my backstory FILTH!!!".ToString();
                 }
                 break;
             case 4:
@@ -230,6 +241,7 @@ public class CustomizePreferences : MonoBehaviour
                 {
                     charPicture.color = Color.white;
                     characterOwnText.text = "YOU DO NOT OWN THIS CHARACTER".ToString();
+                    bioText.text = "So you want to know my story eh? Spend ya dollaridoos n find out!! ;)".ToString();
                 }
                 break;
             default:

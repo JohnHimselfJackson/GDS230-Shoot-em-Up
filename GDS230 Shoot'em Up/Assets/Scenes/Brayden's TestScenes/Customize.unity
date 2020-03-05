@@ -1125,12 +1125,103 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7457813806909607258}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1757005916 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2461844494572411332, guid: ba5be1ece2e34294c8803ce6fae6af76,
+    type: 3}
+  m_PrefabInstance: {fileID: 7457813806909607258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1936140986 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2461844495178392157, guid: ba5be1ece2e34294c8803ce6fae6af76,
     type: 3}
   m_PrefabInstance: {fileID: 7457813806909607258}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2026348639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2026348640}
+  - component: {fileID: 2026348642}
+  - component: {fileID: 2026348641}
+  m_Layer: 5
+  m_Name: Character Bio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2026348640
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026348639}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1757005916}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 597.2, y: -101.4}
+  m_SizeDelta: {x: 828.81, y: 462}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2026348641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026348639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 32
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '"Age: 21. Height: 5''11'''' Loves cookies and shooting off the heads of
+    his enemies. Mack Attack has got your back! Abandoned as a young child, Mack grew
+    up baking cookies at his orphanage for hours on end. Churning out those double
+    fudge & white choc cookies to raise money for more cookie dough. Nowadays Mack
+    finds young cubs on the street and raises them as his own. Raises them into unstobbable
+    killing machines of mega chocolatey death. He also teaches them how to bake, allowing
+    for each individual to branch out into other non-lethal professions. Mack owns
+    several bakeries and Cafes where he employs the youth of tomorrow. That''s the
+    way the cookie crumbles!'
+--- !u!222 &2026348642
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026348639}
+  m_CullTransparentMesh: 0
 --- !u!1 &2085164522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,10 +1405,35 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7457813805177866489, guid: ba5be1ece2e34294c8803ce6fae6af76,
+        type: 3}
+      propertyPath: bioText
+      value: 
+      objectReference: {fileID: 2026348641}
     - target: {fileID: 2461844494572411331, guid: ba5be1ece2e34294c8803ce6fae6af76,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660693585885796987, guid: ba5be1ece2e34294c8803ce6fae6af76,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -71.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660693585885796987, guid: ba5be1ece2e34294c8803ce6fae6af76,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 488.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660693585885796987, guid: ba5be1ece2e34294c8803ce6fae6af76,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 142.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660693586416624242, guid: ba5be1ece2e34294c8803ce6fae6af76,
+        type: 3}
+      propertyPath: m_Text
+      value: BIOGRAPHY
       objectReference: {fileID: 0}
     - target: {fileID: 7457813806623886372, guid: ba5be1ece2e34294c8803ce6fae6af76,
         type: 3}
