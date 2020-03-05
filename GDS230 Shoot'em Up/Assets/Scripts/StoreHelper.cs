@@ -44,6 +44,12 @@ public class StoreHelper : MonoBehaviour
 
     //A reference to our Player.
     public SpriteRenderer player;
+    public SpriteRenderer reds;
+    public SpriteRenderer greens;
+    public SpriteRenderer yellows;
+    public SpriteRenderer blues;
+    public SpriteRenderer blacks;
+
 
     void Start()
     {
@@ -68,16 +74,11 @@ public class StoreHelper : MonoBehaviour
         isThornlieSold = PlayerPrefs.GetInt("IsThornlieSold");
         isMillerinoSold = PlayerPrefs.GetInt("IsMillerinoSold");
 
-
-        //Calls the Sold Check functions for each skin item.
-        RedSold();
-        BlueSold();
-        GreenSold();
-        YellowSold();
-        BlackSold();
-
         //Calls the Sold Check functions for each character item.
         CharacterSold();
+
+        //Calls the Sold Check functions for each skin item.
+        SkinSold();
     }
 
     void Update()
@@ -95,63 +96,32 @@ public class StoreHelper : MonoBehaviour
     }
 
     //Checks to see if our skin items are sold & selected then handles what appears on our character.
-    void RedSold()
+    void SkinSold()
     {
         if (isRedSold == 1 && i == 0)
         {
             red.SetActive(true);
+            reds.sprite = player.sprite;
         }
-        else
-        {
-            red.SetActive(false);
-        }
-    }
-
-    void BlueSold()
-    {
         if (isBlueSold == 1 && i == 1)
         {
             blue.SetActive(true);
+            blues.sprite = player.sprite;
         }
-        else
-        {
-            blue.SetActive(false);
-        }
-    }
-
-    void GreenSold()
-    {
         if (isGreenSold == 1 && i == 2)
         {
             green.SetActive(true);
+            greens.sprite = player.sprite;
         }
-        else
-        {
-            green.SetActive(false);
-        }
-    }
-
-    void YellowSold()
-    {
         if (isYellowSold == 1 && i == 3)
         {
             yellow.SetActive(true);
+            yellows.sprite = player.sprite;
         }
-        else
-        {
-            yellow.SetActive(false);
-        }
-    }
-
-    void BlackSold()
-    {
         if (isBlackSold == 1 && i == 4)
         {
             black.SetActive(true);
-        }
-        else
-        {
-            black.SetActive(false);
+            blacks.sprite = player.sprite;
         }
     }
 

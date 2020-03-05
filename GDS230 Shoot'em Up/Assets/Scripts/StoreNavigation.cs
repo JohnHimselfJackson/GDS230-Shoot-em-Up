@@ -28,5 +28,4 @@ public class StoreNavigation : MonoBehaviour
         skinsPanel.SetActive(false);
         weaponsPanel.SetActive(false);
     }
-
 }

@@ -551,6 +551,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoreCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3319237417988455246, guid: 8b6bc4ff8a2a1624d9af3283ef95acb4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3319237415983355084, guid: 8b6bc4ff8a2a1624d9af3283ef95acb4,
         type: 3}
       propertyPath: m_LocalPosition.x
